@@ -1,0 +1,24 @@
+{
+  "name": "weatherapp-nodejs",
+  "version": "1.0.0",
+  "description": "Showing average temperature and forecast weather for 5 days.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djordje-zivkovic/weatherapp-nodeJS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djordje-zivkovic/weatherapp-nodeJS/issues"
+  },
+  "homepage": "https://github.com/djordje-zivkovic/weatherapp-nodeJS#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "type": "module"
+}
