@@ -13,10 +13,8 @@ exports.getData = async (city, interval = 120) => {
   });
 
   const intervalArray = interval / 3;
-  console.log(intervalArray);
 
   const intervalTemperature = allTemperatures?.slice(0, intervalArray);
-  console.log(intervalTemperature);
 
   const totalAverageTemperature =
     intervalTemperature?.reduce((a, b) => a + b, 0) /
