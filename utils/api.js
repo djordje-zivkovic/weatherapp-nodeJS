@@ -2,8 +2,7 @@ const api = {
   key: "f6a2fb3e9764cc4cc8fa3044874aa2c4",
   base: "https://api.openweathermap.org/data/2.5/",
 };
-
-exports.getData = async (city) => {
+exports.getData = async (city, interval = 120) => {
   let fetchedData = {};
   await fetch(`${api.base}forecast?q=${city}&units=metric&APPID=${api.key}`)
     .then((res) => res.json())
@@ -13,8 +12,14 @@ exports.getData = async (city) => {
     return periodTemperature.main.temp;
   });
 
-  const totalAverageTemperature =
-    allTemperatures.reduce((a, b) => a + b, 0) / allTemperatures.length;
+  const intervalArray = interval / 3;
+  console.log(intervalArray);
 
-  console.log(allTemperatures, totalAverageTemperature);
+  const intervalTemperature = allTemperatures.slice(0, intervalArray);
+  console.log(intervalTemperature);
+
+  const totalAverageTemperature =
+    intervalTemperature.reduce((a, b) => a + b, 0) / intervalTemperature.length;
+
+  return totalAverageTemperature;
 };
