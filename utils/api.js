@@ -8,18 +8,19 @@ exports.getData = async (city, interval = 120) => {
     .then((res) => res.json())
     .then((res) => (fetchedData = res));
 
-  const allTemperatures = fetchedData.list.map((periodTemperature) => {
+  const allTemperatures = fetchedData.list?.map((periodTemperature) => {
     return periodTemperature.main.temp;
   });
 
   const intervalArray = interval / 3;
   console.log(intervalArray);
 
-  const intervalTemperature = allTemperatures.slice(0, intervalArray);
+  const intervalTemperature = allTemperatures?.slice(0, intervalArray);
   console.log(intervalTemperature);
 
   const totalAverageTemperature =
-    intervalTemperature.reduce((a, b) => a + b, 0) / intervalTemperature.length;
+    intervalTemperature?.reduce((a, b) => a + b, 0) /
+    intervalTemperature?.length;
 
   return totalAverageTemperature;
 };
