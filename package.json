@@ -4,6 +4,7 @@
   "description": "Showing average temperature and forecast weather for 5 days.",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +20,5 @@
   "homepage": "https://github.com/djordje-zivkovic/weatherapp-nodeJS#readme",
   "dependencies": {
     "express": "^4.18.2"
-  },
-  "type": "module"
+  }
 }
