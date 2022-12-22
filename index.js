@@ -7,12 +7,6 @@ const cities = require("./utils/cities");
 const app = express();
 const port = 4000;
 
-getData("Prijedor", 6).then((data) => console.log(data));
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 app.use("/api/weather", weatherRouter);
 
 app.all("*", (req, res, next) => {
@@ -22,5 +16,5 @@ app.all("*", (req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`);
+  console.log(`Listening on port ${port}!`);
 });
