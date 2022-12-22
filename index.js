@@ -1,11 +1,13 @@
 const express = require("express");
+const { all } = require("./routes/weatherRoute");
 const weatherRouter = require("./routes/weatherRoute");
-const { getData } = require("./utils/api");
+const { getData } = require("./utils/api.js");
+const cities = require("./utils/cities");
 
 const app = express();
 const port = 4000;
 
-getData("Berlin");
+getData("Prijedor", 6).then((data) => console.log(data));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
