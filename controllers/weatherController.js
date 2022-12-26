@@ -29,7 +29,7 @@ exports.getAverage = async (req, res, next) => {
 
   let message = "";
   cityData.forEach((item) => {
-    message += `For ${item.city}, we have ${item.data} (avg temp). `;
+    message += `For ${item.city}, we have ${item.data.toFixed(2)} (avg temp). `;
   });
 
   res.status(200).json({
