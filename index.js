@@ -1,8 +1,8 @@
 const express = require("express");
-const { all } = require("./routes/weatherRoute");
-const weatherRouter = require("./routes/weatherRoute");
+const weatherRouter = require("./routes/weather.route");
 const { getData } = require("./utils/api.js");
 const cities = require("./utils/cities");
+const AppError = require("./utils/appError");
 
 const app = express();
 const port = 4000;
@@ -10,9 +10,7 @@ const port = 4000;
 app.use("/api/weather", weatherRouter);
 
 app.all("*", (req, res, next) => {
-  res.status(404).json({
-    message: "Can't find this route on server",
-  });
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
 app.listen(port, () => {
