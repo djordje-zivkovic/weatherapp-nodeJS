@@ -1,5 +1,7 @@
+require("dotenv").config();
+
 const api = {
-  key: "f6a2fb3e9764cc4cc8fa3044874aa2c4",
+  key: process.env.API_KEY,
   base: "https://api.openweathermap.org/data/2.5/",
 };
 exports.getData = async (city, interval = 120) => {

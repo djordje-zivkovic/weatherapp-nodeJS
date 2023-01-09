@@ -6,7 +6,7 @@ const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/error.controller");
 
 const app = express();
-const port = 1337;
+const port = 4000;
 
 app.use("/api/weather", weatherRouter);
 
