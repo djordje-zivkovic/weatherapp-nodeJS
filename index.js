@@ -5,30 +5,17 @@ const cities = require("./utils/cities");
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/error.controller");
 const mysql = require("mysql");
-const dotenv = require("dotenv");
+const userRouter = require("./routes/user.router");
 
-dotenv.config({ path: "./.env" });
+require("dotenv").config();
 
 const app = express();
+app.use(express.json());
 
-const db = mysql.createConnection({
-  host: process.env.DATABASE_HOST,
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE,
-});
-
-db.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("MYSQL Connected...");
-  }
-});
-
-const port = 4000;
+const port = process.env.PORT || 3000;
 
 app.use("/api/weather", weatherRouter);
+app.use("/api/users", userRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
