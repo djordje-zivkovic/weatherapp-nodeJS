@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const api = {
   key: process.env.API_KEY,
-  base: "https://api.openweathermap.org/data/2.5/",
+  base: process.env.API_BASE,
 };
 exports.getData = async (city, interval = 120) => {
   let fetchedData = {};
