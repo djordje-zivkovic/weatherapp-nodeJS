@@ -1,20 +1,36 @@
 const express = require("express");
-const { all } = require("./routes/weatherRoute");
-const weatherRouter = require("./routes/weatherRoute");
+const weatherRouter = require("./routes/weather.route");
 const { getData } = require("./utils/api.js");
 const cities = require("./utils/cities");
+const AppError = require("./utils/appError");
+const globalErrorHandler = require("./controllers/error.controller");
+const mysql = require("mysql");
+const userRouter = require("./routes/user.router");
+
+require("dotenv").config();
 
 const app = express();
-const port = 4000;
+app.use(express.json());
+
+const port = process.env.PORT || 3000;
 
 app.use("/api/weather", weatherRouter);
+app.use("/api/users", userRouter);
 
 app.all("*", (req, res, next) => {
-  res.status(404).json({
-    message: "Can't find this route on server",
-  });
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}!`);
 });
+<<<<<<< HEAD
+=======
+
+app.use(globalErrorHandler);
+
+process.on("uncaughtException", function (err) {
+  if (err.code === "EADDRINUSE") console.log("Port is already in use");
+  else console.log(err);
+});
+>>>>>>> develop
