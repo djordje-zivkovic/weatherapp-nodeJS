@@ -24,8 +24,6 @@ app.all("*", (req, res, next) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}!`);
 });
-<<<<<<< HEAD
-=======
 
 app.use(globalErrorHandler);
 
@@ -33,4 +31,3 @@ process.on("uncaughtException", function (err) {
   if (err.code === "EADDRINUSE") console.log("Port is already in use");
   else console.log(err);
 });
->>>>>>> develop
