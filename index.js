@@ -4,7 +4,6 @@ const { getData } = require("./utils/api.js");
 const cities = require("./utils/cities");
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/error.controller");
-const mysql = require("mysql");
 const userRouter = require("./routes/user.router");
 
 require("dotenv").config();
@@ -12,7 +11,7 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 
-const port = process.env.PORT || 3000;
+const port = process.env.NODE_DOCKER_PORT || 8080;
 
 app.use("/api/weather", weatherRouter);
 app.use("/api/users", userRouter);

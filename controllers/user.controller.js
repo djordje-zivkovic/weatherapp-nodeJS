@@ -8,20 +8,17 @@ const {
   deleteUser,
 } = require("./../utils/user.service");
 const { sign } = require("jsonwebtoken");
+const AppError = require("./../utils/appError");
 
 module.exports = {
-  createUser: (req, res) => {
+  createUser: (req, res, next) => {
     console.log(req.body);
     const body = req.body;
     const salt = genSaltSync(10);
     body.password = hashSync(body.password, salt);
     create(body, (err, results) => {
       if (err) {
-        console.log(err);
-        return res.status(500).json({
-          success: 0,
-          message: "Database connection errror",
-        });
+        return next(new AppError("Database connection error"), 500);
       }
       return res.status(200).json({
         success: true,
@@ -29,17 +26,14 @@ module.exports = {
       });
     });
   },
-  login: (req, res) => {
+  login: (req, res, next) => {
     const body = req.body;
     getUserByUserEmail(body.email, (err, results) => {
       if (err) {
-        console.log(err);
+        return next(err);
       }
       if (!results) {
-        return res.json({
-          success: 0,
-          data: "Invalid email or password",
-        });
+        return next(new AppError("Invalid email or password"), 400);
       }
       const result = compareSync(body.password, results.password);
       if (result) {
@@ -53,25 +47,18 @@ module.exports = {
           token: jsontoken,
         });
       } else {
-        return res.json({
-          success: 0,
-          data: "Invalid email or password",
-        });
+        return next(new AppError("Invalid email or password"), 400);
       }
     });
   },
-  getUserByUserId: (req, res) => {
+  getUserByUserId: (req, res, next) => {
     const id = req.params.id;
     getUserByUserId(id, (err, results) => {
       if (err) {
-        console.log(err);
-        return;
+        return next(err);
       }
       if (!results) {
-        return res.json({
-          success: 0,
-          message: "Record not Found",
-        });
+        return next(new AppError("Record not found"), 400);
       }
       results.password = undefined;
       return res.json({
@@ -80,11 +67,10 @@ module.exports = {
       });
     });
   },
-  getUsers: (req, res) => {
+  getUsers: (req, res, next) => {
     getUsers((err, results) => {
       if (err) {
-        console.log(err);
-        return;
+        return next(err);
       }
       return res.json({
         success: 1,
@@ -92,14 +78,13 @@ module.exports = {
       });
     });
   },
-  updateUsers: (req, res) => {
+  updateUsers: (req, res, next) => {
     const body = req.body;
     const salt = genSaltSync(10);
     body.password = hashSync(body.password, salt);
     updateUser(body, (err, results) => {
       if (err) {
-        console.log(err);
-        return;
+        return next(err);
       }
       return res.json({
         success: 1,
@@ -107,18 +92,14 @@ module.exports = {
       });
     });
   },
-  deleteUser: (req, res) => {
+  deleteUser: (req, res, next) => {
     const data = req.body;
     deleteUser(data, (err, results) => {
       if (err) {
-        console.log(err);
-        return;
+        return next(err);
       }
       if (!results) {
-        return res.json({
-          success: 0,
-          message: "Record Not Found",
-        });
+        return next(new AppError("Record not found"), 400);
       }
       return res.json({
         success: 1,
