@@ -1,5 +1,6 @@
 const cities = require("../utils/cities");
 const { getData } = require("../utils/api.js");
+const AppError = require("../utils/appError");
 
 exports.getCities = async (req, res, next) => {
   res.status(200).json({
@@ -16,6 +17,11 @@ exports.getAverage = async (req, res, next) => {
   if (city) {
     for (let i = 0; i < city.length; i++) {
       const data = await getData(city[i], interval);
+      if (!data) {
+        return next(
+          new AppError(`There is no city by this name: ${city[i]}`, 400)
+        );
+      }
       cityData.push({ city: city[i], data });
     }
   } else {
