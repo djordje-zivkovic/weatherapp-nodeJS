@@ -64,16 +64,15 @@ module.exports = {
     );
   },
   deleteUser: (data, callBack) => {
-    console.log(data.id);
     pool.query(
       `DELETE FROM users WHERE id = ?`,
       [data.id],
       (error, results, fields) => {
-        console.log(results);
+        console.log(results.affectedRows);
         if (error) {
           callBack(error);
         }
-        return callBack(null, results);
+        return callBack(null, results.affectedRows);
       }
     );
   },
