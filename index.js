@@ -11,7 +11,7 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 
-const port = process.env.NODE_DOCKER_PORT || 8080;
+const port = 3000;
 
 app.use("/api/weather", weatherRouter);
 app.use("/api/users", userRouter);
