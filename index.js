@@ -11,6 +11,12 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 
+const db = require("./config/database");
+
+db.authenticate()
+  .then(() => console.log("Database connected"))
+  .catch((err) => console.log(err));
+
 const port = 3000;
 
 app.use("/api/weather", weatherRouter);
