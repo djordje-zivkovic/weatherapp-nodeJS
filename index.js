@@ -26,7 +26,7 @@ app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-app.listen(port, () => {
+module.exports = app.listen(port, () => {
   console.log(`Listening on port ${port}!`);
 });
 

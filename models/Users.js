@@ -20,7 +20,7 @@ const User = db.define("users", {
 
 db.sync()
   .then(() => {
-    console.log("users table created successfully!");
+    console.log("The table for the User model was just (re)created!");
   })
   .catch((error) => {
     console.error("Unable to create users : ", error);
