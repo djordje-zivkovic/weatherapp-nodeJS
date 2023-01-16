@@ -43,7 +43,7 @@ module.exports = {
       const password_valid = await compareSync(body.password, user1.password);
       console.log(password_valid);
       if (password_valid) {
-        const jsontoken = sign({ user1 }, "dwdqeqe1231", {
+        const jsontoken = sign({ user1 }, process.env.JWT_KEY, {
           expiresIn: "1h",
         });
         res.status(200).json({ token: jsontoken });
