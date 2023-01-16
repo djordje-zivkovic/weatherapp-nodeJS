@@ -1,12 +1,4 @@
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
-const {
-  create,
-  getUserByUserEmail,
-  getUserByUserId,
-  getUsers,
-  updateUser,
-  deleteUser,
-} = require("./../utils/user.service");
 const { sign } = require("jsonwebtoken");
 const AppError = require("./../utils/appError");
 
@@ -15,7 +7,6 @@ const User = require("./../models/Users");
 
 module.exports = {
   createUser: (req, res, next) => {
-    console.log(req.body);
     const body = req.body;
     const salt = genSaltSync(10);
     body.password = hashSync(body.password, salt);
@@ -80,18 +71,5 @@ module.exports = {
     })
       .then((response) => res.json({ response }))
       .catch((err) => res.json({ err }));
-    // const data = req.body;
-    // deleteUser(data, (err, results) => {
-    //   if (err) {
-    //     return next(err);
-    //   }
-    //   if (!results) {
-    //     return next(new AppError("Record not found"), 400);
-    //   }
-    //   return res.json({
-    //     success: 1,
-    //     message: "user deleted successfully",
-    //   });
-    // });
   },
 };

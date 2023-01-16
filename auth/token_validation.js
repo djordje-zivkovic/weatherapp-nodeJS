@@ -6,7 +6,6 @@ module.exports = {
     if (token) {
       // Remove Bearer from string
       token = token.split(" ")[1];
-      console.log(token);
       jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
         if (err) {
           return next(new AppError("Token is not valid"), 400);

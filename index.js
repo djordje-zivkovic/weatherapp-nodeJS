@@ -17,7 +17,7 @@ db.authenticate()
   .then(() => console.log("Database connected"))
   .catch((err) => console.log(err));
 
-const port = 3000;
+const port = process.env.PORT || 4000;
 
 app.use("/api/weather", weatherRouter);
 app.use("/api/users", userRouter);

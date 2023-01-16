@@ -9,11 +9,18 @@ const User = db.define("users", {
   },
   name: {
     type: DataTypes.STRING,
+    allowNull: false,
   },
   email: {
     type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      isEmail: true,
+    },
+    unique: true,
   },
   password: {
+    allowNull: false,
     type: DataTypes.STRING,
   },
 });
